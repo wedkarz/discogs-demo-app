@@ -10,15 +10,15 @@ import Foundation
 import SwiftUI
 
 struct InfoView: View {
-  let message: String
-  let imageName: String
+    let message: String
+    let imageName: String
     
-  var body: some View {
-    VStack(spacing: 12) {
-      Spacer()
-      Image(systemName: imageName).font(.system(size: 48))
-        Text(message).multilineTextAlignment(.center)
-      Spacer()
+    var body: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            Image(systemName: imageName).font(.system(size: 48))
+            Text(message).multilineTextAlignment(.center)
+            Spacer()
+        }
     }
-  }
 }
