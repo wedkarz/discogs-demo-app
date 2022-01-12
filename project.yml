@@ -1,0 +1,54 @@
+packages:
+  Moya:
+    url: https://github.com/Moya/Moya
+    majorVersion: 15.0.0
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    majorVersion: 7.0.0
+name: DiscogsDemoApp
+options:
+  createIntermediateGroups: true
+attributes:
+  ORGANIZATIONNAME: IT ART - Artur Rybak
+configs:
+  Debug: debug
+  Release: release
+targets:
+  DiscogsDemoApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [DiscogsDemoApp]
+    dependencies:
+      # - carthage: Alamofire
+      - package: Moya
+      - package: Moya
+        product: CombineMoya
+      - package: Kingfisher
+    settings:
+      MARKETING_VERSION: "0.1"
+      CURRENT_PROJECT_VERSION: 1
+      VERSIONING_SYSTEM: "apple-generic"
+      DEVELOPMENT_TEAM: RE284493SP
+      TARGETED_DEVICE_FAMILY: 1,2
+      PRODUCT_BUNDLE_IDENTIFIER: mobi.itart.discogs-demo-app
+      GENERATE_INFOPLIST_FILE: true
+      INFOPLIST_KEY_UILaunchScreen_Generation: true
+      DISCOGS_AUTH_KEY: ${DISCOGS_AUTH_KEY}
+      DISCOGS_AUTH_SECRET: ${DISCOGS_AUTH_SECRET}
+  DiscogsDemoAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: DiscogsDemoAppTests  
+    dependencies:
+      - target: DiscogsDemoApp
+
+schemes:
+  DiscogsDemoApp:
+    build:
+      targets:
+        DiscogsDemoApp: all
+    run:
+      commandLineArguments:
+        "-com.apple.CoreData.SQLDebug 1": false
+        "-com.apple.CoreData.Logging.stderr 1": false
