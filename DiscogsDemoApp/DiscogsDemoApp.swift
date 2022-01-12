@@ -17,8 +17,6 @@ struct DiscogsDemoApp: App {
     var body: some Scene {
         WindowGroup {
             ArtistReleasesView(viewModel: ArtistReleasesViewModel(service: .init(onlineRepository: .init(), offlineRepository: .init(context: persistenceController.container.viewContext), networkMonitoringService: .init())))
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

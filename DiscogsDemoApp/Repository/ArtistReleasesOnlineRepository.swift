@@ -29,7 +29,6 @@ class ArtistReleasesOnlineRepository: Repository {
             .map(\.releases)
             .map { $0.map { release in release.model() } }
             .mapError { $0 as Error }
-            .print()
             .eraseToAnyPublisher()
     }
     

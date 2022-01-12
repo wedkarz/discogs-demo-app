@@ -33,7 +33,8 @@ targets:
       TARGETED_DEVICE_FAMILY: 1,2
       PRODUCT_BUNDLE_IDENTIFIER: mobi.itart.discogs-demo-app
       GENERATE_INFOPLIST_FILE: true
-      INFOPLIST_KEY_UILaunchScreen_Generation: true
+      INFOPLIST_KEY_UILaunchScreen_Generation: false
+      INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen.storyboard
       DISCOGS_AUTH_KEY: ${DISCOGS_AUTH_KEY}
       DISCOGS_AUTH_SECRET: ${DISCOGS_AUTH_SECRET}
   DiscogsDemoAppTests:

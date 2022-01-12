@@ -6,5 +6,7 @@
 	<string>$(DISCOGS_AUTH_KEY)</string>
 	<key>DISCOGS_AUTH_SECRET</key>
 	<string>$(DISCOGS_AUTH_SECRET)</string>
+	<key>UILaunchScreen</key>
+	<true/>
 </dict>
 </plist>
