@@ -9,10 +9,17 @@
 import Foundation
 import Combine
 
-class ArtistReleasesViewModel: ObservableObject {
-    @Published var releases: [Release] = Array(repeating: Release.empty, count: 10)
-    @Published var error: String = ""
-    @Published var isLoading: Bool = false
+enum ArtistReleasesViewModelOutput {
+    case initial
+    case loading(placeholder: [Release])
+    case loaded(items: [Release])
+    case error(Error)
+    case empty
+}
+
+final class ArtistReleasesViewModel: ObservableObject {
+    @Published var releases: [Release] = []
+    @Published var output: ArtistReleasesViewModelOutput = .initial
     
     private let service: ArtistReleasesService
     private var disposeBag = Set<AnyCancellable>()
@@ -22,16 +29,13 @@ class ArtistReleasesViewModel: ObservableObject {
     }
     
     func fetch() {
-        isLoading = true
+        output = .loading(placeholder: (0 ..< 10).map { Release.empty(id: $0) })
         
         service.fetch().sink { [weak self] completion in
-            self?.isLoading = false
-            
             guard case let .failure(error) = completion else { return }
-            self?.error = error.localizedDescription
+            self?.output = .error(error)
         } receiveValue: { [weak self] value in
-            self?.releases = value
-            self?.isLoading = false
+            self?.output = value.isEmpty ? .empty : .loaded(items: value)
         }.store(in: &disposeBag)
     }
 }

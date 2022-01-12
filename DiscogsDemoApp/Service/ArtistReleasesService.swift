@@ -27,9 +27,10 @@ final class ArtistReleasesService {
     }
     
     func fetch() -> AnyPublisher<[Release], Error> {
-        isConnected.removeDuplicates().compactMap { $0 }.flatMap { [unowned self] connected in
-            connected ? self.fetchOnline() : self.fetchOffline()
-        }.eraseToAnyPublisher()
+        isConnected.print().receive(on: RunLoop.main).compactMap { $0 }.withUnretained(self).flatMap { service, connected -> AnyPublisher<[Release], Error> in
+            return connected ? service.fetchOnline() : service.fetchOffline()
+        }
+        .eraseToAnyPublisher()
     }
     
     private func fetchOffline() -> AnyPublisher<[Release], Error> {
@@ -37,10 +38,10 @@ final class ArtistReleasesService {
     }
     
     private func fetchOnline() -> AnyPublisher<[Release], Error> {
-        return onlineRepository.all().flatMap { [unowned self] releases in
-            self.offlineRepository.update(objects: releases)
-        }.flatMap { [unowned self] _ in
-            self.offlineRepository.all()
+        return onlineRepository.all().withUnretained(self).flatMap { service, releases in
+            service.offlineRepository.update(objects: releases)
+        }.withUnretained(self).flatMap { service, _ in
+            service.offlineRepository.all()
         }.eraseToAnyPublisher()
     }
 }

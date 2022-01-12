@@ -18,8 +18,8 @@ struct Release {
 }
 
 extension Release {
-    static var empty: Release {
-        .init(id: 0, title: "Best album placeholder", year: 2000, thumb: "", inWantlist: 1000, inCollection: 100)
+    static func empty(id: Int) -> Release {
+        .init(id: id, title: "Best album placeholder", year: 2000, thumb: "", inWantlist: 1000, inCollection: 100)
     }
     
     var thumbUrl: URL {

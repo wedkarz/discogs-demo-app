@@ -1,28 +1,14 @@
 //
-//  ArtistReleasesView.swift
+//  ArtistReleaseItemView.swift
 //  DiscogsDemoApp
 //
-//  Created by Artur Rybak
+//  Created by Artur Rybak on 12/01/2022.
 //  Copyright © 2022 IT ART - Artur Rybak. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
-import Combine
 import Kingfisher
-
-struct ArtistReleasesView: View {
-    @ObservedObject var viewModel: ArtistReleasesViewModel
-    private let fade = AnyTransition.opacity.animation(Animation.linear(duration: 0.5))
-    
-    var body: some View {
-        List(viewModel.releases, id: \.id) {
-            ArtistReleaseItemView(release: $0)
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-        }
-        .onAppear(perform: viewModel.fetch)
-    }
-}
 
 struct ArtistReleaseItemView: View {
     let release: Release
