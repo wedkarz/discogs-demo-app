@@ -1,11 +1,13 @@
 # Prerequisities
-- xcodegen [xcodegen](https://github.com/yonaskolb/XcodeGen)
+- [xcodegen](https://github.com/yonaskolb/XcodeGen) `brew install xcodegen`
 
-# How to run build the app?
-1) Provide env vars for discogs API:
+# How to build the app?
+1) Provide env vars for discogs API (https://api.discogs.com/)
     - DISCOGS_AUTH_KEY
     - DISCOGS_AUTH_SECRET
-2) Generate project file by running `xcodegen generate` 
+    
+2) Generate project file by running `DISCOGS_AUTH_KEY=yourauthkey DISCOGS_AUTH_SECRET=yourauthsecret xcodegen generate` 
+Without auth key resoures returned by API are limited (eg. no thumbnails)
 
 # TODO:
 - Dependency Injection framework
